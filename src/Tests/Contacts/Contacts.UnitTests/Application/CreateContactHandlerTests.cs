@@ -15,7 +15,9 @@ namespace Contacts.UnitTests.Application;
 public class CreateContactHandlerTests
 {
     private Task Act(CreateContact command)
-        => _commandHandler.HandleAsync(command);
+    {
+        return _commandHandler.HandleAsync(command);
+    }
 
     [Fact]
     public async Task HandleAsync_Throws_EmptyContactFirstNameException_When_First_Name_Is_Empty()

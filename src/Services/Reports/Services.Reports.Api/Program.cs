@@ -16,10 +16,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
+if (builder.Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneDirectory.Reporting.Api v1"));

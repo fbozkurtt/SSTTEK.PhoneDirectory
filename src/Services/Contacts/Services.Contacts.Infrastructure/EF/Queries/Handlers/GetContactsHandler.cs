@@ -12,12 +12,16 @@ internal sealed class GetContactsHandler : IQueryHandler<GetContacts, IEnumerabl
     private readonly DbSet<ContactReadModel> _contacts;
 
     public GetContactsHandler(ReadDbContext dbContext)
-        => _contacts = dbContext.Contacts;
+    {
+        _contacts = dbContext.Contacts;
+    }
 
     public async Task<IEnumerable<ContactDto>> HandleAsync(GetContacts query)
-        => await _contacts
+    {
+        return await _contacts
             .Include(c => c.Fields)
             .Select(c => c.AsDto())
             .AsNoTracking()
             .ToListAsync();
+    }
 }

@@ -10,7 +10,9 @@ public class AddContactFieldHandler : ICommandHandler<AddContactField>
     private readonly IContactRepository _contactRepository;
 
     public AddContactFieldHandler(IContactRepository contactRepository)
-        => _contactRepository = contactRepository;
+    {
+        _contactRepository = contactRepository;
+    }
 
     public async Task HandleAsync(AddContactField command)
     {
@@ -18,10 +20,7 @@ public class AddContactFieldHandler : ICommandHandler<AddContactField>
 
         var contact = await _contactRepository.GetAsync(contactId);
 
-        if (contact is null)
-        {
-            throw new ContactNotFoundException(contactId);
-        }
+        if (contact is null) throw new ContactNotFoundException(contactId);
 
         var field = new ContactField(value, type);
         contact.AddField(field);

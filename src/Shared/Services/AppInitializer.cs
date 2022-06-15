@@ -1,6 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
 
 namespace Shared.Services;
 
@@ -9,7 +9,9 @@ internal sealed class AppInitializer : IHostedService
     private readonly IServiceProvider _serviceProvider;
 
     public AppInitializer(IServiceProvider serviceProvider)
-        => _serviceProvider = serviceProvider;
+    {
+        _serviceProvider = serviceProvider;
+    }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -20,14 +22,14 @@ internal sealed class AppInitializer : IHostedService
         using var scope = _serviceProvider.CreateScope();
         foreach (var dbContextType in dbContextTypes)
         {
-            if (scope.ServiceProvider.GetRequiredService(dbContextType) is not DbContext dbContext)
-            {
-                continue;
-            }
+            if (scope.ServiceProvider.GetRequiredService(dbContextType) is not DbContext dbContext) continue;
 
             await dbContext.Database.MigrateAsync(cancellationToken);
         }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
 }

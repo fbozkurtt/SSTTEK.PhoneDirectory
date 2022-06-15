@@ -7,15 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="EF\Migrations" />
+        <Folder Include="EF\Migrations"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Services.Contacts.Application\Services.Contacts.Application.csproj" />
+        <ProjectReference Include="..\Services.Contacts.Application\Services.Contacts.Application.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3"/>
     </ItemGroup>
 
 </Project>

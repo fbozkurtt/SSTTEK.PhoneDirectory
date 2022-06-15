@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
             c.UsingRabbitMq((context, cfg) =>
             {
                 var uri = new Uri($"{options.Host}:{options.Port}");
-                
+
                 cfg.Host(uri, ch =>
                 {
                     if (options.Username is null || options.Password is null)

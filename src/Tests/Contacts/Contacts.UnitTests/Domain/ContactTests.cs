@@ -14,14 +14,16 @@ namespace Contacts.UnitTests.Domain;
 public class ContactTests
 {
     [Fact]
-    public void AddField_Throws_ContactFieldAlreadyExistsException_When_There_Is_Already_A_Field_With_The_Same_Value_And_Type()
+    public void
+        AddField_Throws_ContactFieldAlreadyExistsException_When_There_Is_Already_A_Field_With_The_Same_Value_And_Type()
     {
         //ARRANGE
         var packingList = GetContact();
         packingList.AddField(new ContactField("STTTek", ContactFieldType.Company));
-            
+
         //ACT
-        var exception = Record.Exception(() => packingList.AddField(new ContactField("STTTek", ContactFieldType.Company)));
+        var exception =
+            Record.Exception(() => packingList.AddField(new ContactField("STTTek", ContactFieldType.Company)));
 
         //ASSERT
         exception.ShouldNotBeNull();
@@ -33,10 +35,11 @@ public class ContactTests
     {
         //ARRANGE
         var contact = GetContact();
-            
+
         //ACT
-        var exception = Record.Exception(() => contact.AddField(new ContactField("istanbul", ContactFieldType.Location)));
-            
+        var exception =
+            Record.Exception(() => contact.AddField(new ContactField("istanbul", ContactFieldType.Location)));
+
         //ASSERT
         exception.ShouldBeNull();
         contact.Events.Count().ShouldBe(1);
@@ -44,12 +47,12 @@ public class ContactTests
         var @event = contact.Events.FirstOrDefault() as ContactFieldAdded;
 
         @event.ShouldNotBeNull();
-        @event.Fields.All(f=>f.Value == "istanbul".ToUpperInvariant()).ShouldBe(true);
+        @event.Fields.All(f => f.Value == "istanbul".ToUpperInvariant()).ShouldBe(true);
     }
 
 
     #region ARRANGE
-        
+
     private Contact GetContact()
     {
         var packingList = _factory.Create(Guid.NewGuid(), "Furkan", "Bozkurt");

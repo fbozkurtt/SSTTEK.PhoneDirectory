@@ -6,5 +6,7 @@ namespace Services.Contacts.Domain.Factories;
 public sealed class ContactFactory : IContactFactory
 {
     public Contact Create(ContactId id, ContactFirstName firstName, ContactLastName? lastName)
-        => new(id, firstName, lastName);
+    {
+        return new(id, firstName, lastName);
+    }
 }

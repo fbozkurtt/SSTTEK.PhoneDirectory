@@ -10,8 +10,8 @@ namespace Services.Contacts.Infrastructure.EF.Repositories;
 internal sealed class PostgresContactRepository : IContactRepository
 {
     private readonly DbSet<Contact> _contacts;
-    private readonly WriteDbContext _writeDbContext;
     private readonly IDomainEventPublisher _eventPublisher;
+    private readonly WriteDbContext _writeDbContext;
 
     public PostgresContactRepository(WriteDbContext writeDbContext, IDomainEventPublisher eventPublisher)
     {
@@ -21,7 +21,9 @@ internal sealed class PostgresContactRepository : IContactRepository
     }
 
     public Task<Contact?> GetAsync(ContactId id)
-        => _contacts.Include("_fields").SingleOrDefaultAsync(c => c.Id == id); 
+    {
+        return _contacts.Include("_fields").SingleOrDefaultAsync(c => c.Id == id);
+    }
 
     public async Task AddAsync(Contact contact)
     {

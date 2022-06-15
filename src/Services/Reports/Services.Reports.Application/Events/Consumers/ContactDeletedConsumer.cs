@@ -9,8 +9,8 @@ namespace Services.Reports.Application.Events.Consumers;
 
 public class ContactDeletedConsumer : IConsumer<ContactDeleted>
 {
-    private readonly IReportRepository _reportRepository;
     private readonly IReportReadService _reportReadService;
+    private readonly IReportRepository _reportRepository;
 
     public ContactDeletedConsumer(IReportRepository reportRepository, IReportReadService reportReadService)
     {
@@ -32,7 +32,7 @@ public class ContactDeletedConsumer : IConsumer<ContactDeleted>
 
         var reportsToUpdate = await _reportRepository.GetAsync(reportIds);
         var phoneNumberCount = context.Message.Fields.Count(f => f.Type == ContactFieldType.Phone);
-        
+
         foreach (var report in reportsToUpdate)
         {
             report.DecrementPhoneNumberCount((uint) phoneNumberCount);

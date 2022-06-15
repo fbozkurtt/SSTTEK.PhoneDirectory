@@ -6,10 +6,7 @@ public record ContactId
 {
     public ContactId(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new EmptyContactIdException();
-        }
+        if (value == Guid.Empty) throw new EmptyContactIdException();
 
         Value = value;
     }
@@ -17,9 +14,12 @@ public record ContactId
     public Guid Value { get; }
 
     public static implicit operator Guid(ContactId id)
-        => id.Value;
+    {
+        return id.Value;
+    }
 
     public static implicit operator ContactId(Guid id)
-        => new(id);
-
+    {
+        return new(id);
+    }
 }

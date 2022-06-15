@@ -5,11 +5,9 @@ namespace Services.Reports.Domain.Entities.Report;
 
 public class Report
 {
-    public ReportId Id { get; private set; } = null!;
+    private ReportLocation _location = null!;
     private uint _numberOfContacts;
     private uint _numberOfPhoneNumbers;
-
-    private ReportLocation _location = null!;
 
     private Report()
     {
@@ -22,6 +20,8 @@ public class Report
         _numberOfContacts = 0;
         _numberOfPhoneNumbers = 0;
     }
+
+    public ReportId Id { get; } = null!;
 
     public void IncrementContactCount()
     {

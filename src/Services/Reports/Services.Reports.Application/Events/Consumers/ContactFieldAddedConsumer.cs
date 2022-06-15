@@ -11,9 +11,9 @@ namespace Services.Reports.Application.Events.Consumers;
 
 public class ContactFieldAddedConsumer : IConsumer<ContactFieldAdded>
 {
-    private readonly IReportRepository _reportRepository;
-    private readonly IReportReadService _reportReadService;
     private readonly IReportFactory _reportFactory;
+    private readonly IReportReadService _reportReadService;
+    private readonly IReportRepository _reportRepository;
 
     public ContactFieldAddedConsumer(IReportRepository reportRepository,
         IReportReadService reportReadService,
@@ -74,10 +74,7 @@ public class ContactFieldAddedConsumer : IConsumer<ContactFieldAdded>
 
                 var reportsToUpdate = await _reportRepository.GetAsync(reportIds);
 
-                foreach (var report in reportsToUpdate)
-                {
-                    report.IncrementPhoneNumberCount();
-                }
+                foreach (var report in reportsToUpdate) report.IncrementPhoneNumberCount();
 
                 await _reportRepository.UpdateRangeAsync(reportsToUpdate.ToArray());
 

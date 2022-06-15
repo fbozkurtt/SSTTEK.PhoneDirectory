@@ -10,8 +10,8 @@ namespace Services.Reports.Application.Events.Consumers;
 
 public class ContactFieldRemovedConsumer : IConsumer<ContactFieldRemoved>
 {
-    private readonly IReportRepository _reportRepository;
     private readonly IReportReadService _reportReadService;
+    private readonly IReportRepository _reportRepository;
 
     public ContactFieldRemovedConsumer(IReportRepository reportRepository, IReportReadService reportReadService)
     {
@@ -60,10 +60,7 @@ public class ContactFieldRemovedConsumer : IConsumer<ContactFieldRemoved>
 
                 var reportsToUpdate = await _reportRepository.GetAsync(reportIds);
 
-                foreach (var report in reportsToUpdate)
-                {
-                    report.DecrementPhoneNumberCount();
-                }
+                foreach (var report in reportsToUpdate) report.DecrementPhoneNumberCount();
 
                 await _reportRepository.UpdateRangeAsync(reportsToUpdate.ToArray());
 

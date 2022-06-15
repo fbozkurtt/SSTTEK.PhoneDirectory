@@ -6,8 +6,8 @@ namespace Services.Contacts.Application.Commands.Handler;
 
 public class CreateContactHandler : ICommandHandler<CreateContact>
 {
-    private readonly IContactRepository _contactRepository;
     private readonly IContactFactory _contactFactory;
+    private readonly IContactRepository _contactRepository;
 
     public CreateContactHandler(IContactRepository contactRepository, IContactFactory contactFactory)
     {

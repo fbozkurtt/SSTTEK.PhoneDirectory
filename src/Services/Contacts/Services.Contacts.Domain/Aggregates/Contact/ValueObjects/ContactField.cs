@@ -5,15 +5,9 @@ namespace Services.Contacts.Domain.Aggregates.Contact.ValueObjects;
 
 public record ContactField
 {
-    public string Value { get; }
-    public ContactFieldType Type { get; }
-
     public ContactField(string value, ContactFieldType type)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new EmptyContactFieldException();
-        }
+        if (string.IsNullOrWhiteSpace(value)) throw new EmptyContactFieldException();
 
         switch (type)
         {
@@ -21,9 +15,7 @@ public record ContactField
             {
                 var splitValue = value.Split("@");
                 if (splitValue.Length is not 2 || splitValue.Last().Split(".").Length is not 2)
-                {
                     throw new InvalidEmailFormatException(value);
-                }
 
                 break;
             }
@@ -40,4 +32,7 @@ public record ContactField
         Value = value.ToUpperInvariant();
         Type = type;
     }
+
+    public string Value { get; }
+    public ContactFieldType Type { get; }
 }

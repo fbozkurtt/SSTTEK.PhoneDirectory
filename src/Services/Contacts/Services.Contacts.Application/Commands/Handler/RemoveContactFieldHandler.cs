@@ -18,10 +18,7 @@ public class RemoveContactFieldHandler : ICommandHandler<RemoveContactField>
         var (contactId, value, type) = command;
         var contact = await _contactRepository.GetAsync(contactId);
 
-        if (contact is null)
-        {
-            throw new ContactNotFoundException(contactId);
-        }
+        if (contact is null) throw new ContactNotFoundException(contactId);
 
         contact.RemoveField(value, type);
 

@@ -7,5 +7,7 @@ namespace Services.Contacts.Api.Controllers;
 public class BaseController : ControllerBase
 {
     protected ActionResult<TResult> OkOrNotFound<TResult>(TResult result)
-        => result is null ? NotFound() : Ok(result);
+    {
+        return result is null ? NotFound() : Ok(result);
+    }
 }

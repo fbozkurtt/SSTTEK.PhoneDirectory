@@ -8,7 +8,9 @@ internal sealed class InMemoryCommandDispatcher : ICommandDispatcher
     private readonly IServiceProvider _serviceProvider;
 
     public InMemoryCommandDispatcher(IServiceProvider serviceProvider)
-        => _serviceProvider = serviceProvider;
+    {
+        _serviceProvider = serviceProvider;
+    }
 
     public async Task DispatchAsync<TCommand>(TCommand command) where TCommand : class, ICommand
     {

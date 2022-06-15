@@ -5,5 +5,4 @@ namespace Services.Contacts.Application.Queries;
 
 public class GetContacts : IQuery<IEnumerable<ContactDto>>
 {
-    
 }

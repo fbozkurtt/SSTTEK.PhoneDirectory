@@ -17,9 +17,14 @@ internal sealed class PostgresReportRepository : IReportRepository
     }
 
     public Task<Report?> GetAsync(ReportId id)
-        => _reports.AsNoTracking().SingleOrDefaultAsync(r => r.Id == id);
+    {
+        return _reports.AsNoTracking().SingleOrDefaultAsync(r => r.Id == id);
+    }
+
     public Task<List<Report>> GetAsync(IEnumerable<ReportId> ids)
-        => _reports.AsNoTracking().Where(r => ids.Contains(r.Id)).ToListAsync();
+    {
+        return _reports.AsNoTracking().Where(r => ids.Contains(r.Id)).ToListAsync();
+    }
 
     public async Task AddAsync(Report report)
     {

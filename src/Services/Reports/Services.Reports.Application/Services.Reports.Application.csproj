@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
-      <ProjectReference Include="..\..\Contacts\Services.Contacts.Domain\Services.Contacts.Domain.csproj" />
-      <ProjectReference Include="..\Services.Reports.Domain\Services.Reports.Domain.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\..\Contacts\Services.Contacts.Domain\Services.Contacts.Domain.csproj"/>
+        <ProjectReference Include="..\Services.Reports.Domain\Services.Reports.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit.Abstractions" Version="8.0.3" />
+        <PackageReference Include="MassTransit.Abstractions" Version="8.0.3"/>
     </ItemGroup>
 
 </Project>

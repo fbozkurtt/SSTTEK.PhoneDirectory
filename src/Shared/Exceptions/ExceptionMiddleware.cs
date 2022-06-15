@@ -26,7 +26,9 @@ internal sealed class ExceptionMiddleware : IMiddleware
     }
 
     private static string ToUnderscoreCase(string value)
-        => string.Concat((value).Select((x, i) =>
+    {
+        return string.Concat(value.Select((x, i) =>
                 i > 0 && char.IsUpper(x) && !char.IsUpper(value[i - 1]) ? $"_{x}" : x.ToString()))
             .ToLower(new CultureInfo("en-US"));
+    }
 }

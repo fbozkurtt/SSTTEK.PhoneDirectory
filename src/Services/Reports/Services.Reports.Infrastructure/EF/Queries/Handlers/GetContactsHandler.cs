@@ -12,12 +12,16 @@ internal sealed class GetReportsHandler : IQueryHandler<GetReports, IEnumerable<
     private readonly DbSet<ReportReadModel> _reports;
 
     public GetReportsHandler(ReadDbContext dbContext)
-        => _reports = dbContext.Reports;
+    {
+        _reports = dbContext.Reports;
+    }
 
     public async Task<IEnumerable<ReportDto>> HandleAsync(GetReports query)
-        => await _reports
+    {
+        return await _reports
             .AsNoTracking()
             .OrderByDescending(r => r.NumberOfContacts)
             .Select(r => r.AsDto())
             .ToListAsync();
+    }
 }

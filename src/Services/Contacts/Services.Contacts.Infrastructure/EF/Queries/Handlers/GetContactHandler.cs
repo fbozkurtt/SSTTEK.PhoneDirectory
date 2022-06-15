@@ -12,13 +12,17 @@ internal sealed class GetContactHandler : IQueryHandler<GetContact, ContactDto?>
     private readonly DbSet<ContactReadModel> _contacts;
 
     public GetContactHandler(ReadDbContext dbContext)
-        => _contacts = dbContext.Contacts;
+    {
+        _contacts = dbContext.Contacts;
+    }
 
     public Task<ContactDto?> HandleAsync(GetContact query)
-        => _contacts
+    {
+        return _contacts
             .Include(c => c.Fields)
             .Where(c => c.Id == query.Id)
             .Select(c => c.AsDto())
             .AsNoTracking()
             .SingleOrDefaultAsync();
+    }
 }

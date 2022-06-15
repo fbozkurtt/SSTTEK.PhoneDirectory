@@ -6,10 +6,12 @@ namespace Services.Reports.Infrastructure.EF.Queries;
 internal static class Extensions
 {
     public static ReportDto AsDto(this ReportReadModel readModel)
-        => new()
+    {
+        return new()
         {
             Location = readModel.Location.ToString(),
             NumberOfContacts = readModel.NumberOfContacts,
             NumberOfPhoneNumbers = readModel.NumberOfPhoneNumbers
         };
+    }
 }

@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddCommands();
         services.AddSingleton<IContactFactory, ContactFactory>();
-            
+
         return services;
     }
 }

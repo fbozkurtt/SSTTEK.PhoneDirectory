@@ -2,19 +2,25 @@
 
 internal class ReportLocationReadModel
 {
-    public string Value { get; }
-
     public ReportLocationReadModel(string value)
     {
         Value = value;
     }
 
+    public string Value { get; }
+
     public override string ToString()
-        => Value;
-    
+    {
+        return Value;
+    }
+
     public static implicit operator string(ReportLocationReadModel location)
-        => location.Value;
-        
+    {
+        return location.Value;
+    }
+
     public static implicit operator ReportLocationReadModel(string location)
-        => new(location);
+    {
+        return new(location);
+    }
 }

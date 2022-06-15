@@ -7,6 +7,11 @@ namespace Services.Contacts.Infrastructure.EF.Config;
 internal sealed class ContactReadTypeConfiguration : IEntityTypeConfiguration<ContactReadModel>,
     IEntityTypeConfiguration<ContactFieldReadModel>
 {
+    public void Configure(EntityTypeBuilder<ContactFieldReadModel> builder)
+    {
+        builder.ToTable("ContactFields");
+    }
+
     public void Configure(EntityTypeBuilder<ContactReadModel> builder)
     {
         builder.ToTable("Contacts");
@@ -15,10 +20,5 @@ internal sealed class ContactReadTypeConfiguration : IEntityTypeConfiguration<Co
         builder
             .HasMany(pl => pl.Fields)
             .WithOne(pi => pi.Contact);
-    }
-
-    public void Configure(EntityTypeBuilder<ContactFieldReadModel> builder)
-    {
-        builder.ToTable("ContactFields");
     }
 }

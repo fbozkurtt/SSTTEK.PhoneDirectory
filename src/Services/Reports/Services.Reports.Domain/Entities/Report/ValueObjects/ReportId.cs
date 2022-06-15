@@ -6,10 +6,7 @@ public record ReportId
 {
     public ReportId(Guid value)
     {
-        if (value == Guid.Empty)
-        {
-            throw new EmptyReportIdException();
-        }
+        if (value == Guid.Empty) throw new EmptyReportIdException();
 
         Value = value;
     }
@@ -17,8 +14,12 @@ public record ReportId
     public Guid Value { get; }
 
     public static implicit operator Guid(ReportId id)
-        => id.Value;
+    {
+        return id.Value;
+    }
 
     public static implicit operator ReportId(Guid id)
-        => new(id);
+    {
+        return new(id);
+    }
 }

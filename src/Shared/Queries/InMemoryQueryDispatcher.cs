@@ -8,7 +8,9 @@ internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
     private readonly IServiceProvider _serviceProvider;
 
     public InMemoryQueryDispatcher(IServiceProvider serviceProvider)
-        => _serviceProvider = serviceProvider;
+    {
+        _serviceProvider = serviceProvider;
+    }
 
     public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
     {

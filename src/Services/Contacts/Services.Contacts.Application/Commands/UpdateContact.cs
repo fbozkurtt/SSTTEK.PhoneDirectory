@@ -2,7 +2,7 @@ using Shared.Abstractions.Commands;
 
 namespace Services.Contacts.Application.Commands;
 
-public record UpdateContact: ICommand
+public record UpdateContact : ICommand
 {
     internal Guid Id { get; private set; }
     public string? FirstName { get; set; }

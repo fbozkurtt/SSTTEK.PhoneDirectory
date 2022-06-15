@@ -4,21 +4,22 @@ namespace Services.Contacts.Domain.Aggregates.Contact.ValueObjects;
 
 public record ContactFirstName
 {
-    public string Value { get; }
-
     public ContactFirstName(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new EmptyContactFirstNameException();
-        }
-            
+        if (string.IsNullOrWhiteSpace(value)) throw new EmptyContactFirstNameException();
+
         Value = value;
     }
 
+    public string Value { get; }
+
     public static implicit operator string(ContactFirstName name)
-        => name.Value;
-        
+    {
+        return name.Value;
+    }
+
     public static implicit operator ContactFirstName(string name)
-        => new(name);
+    {
+        return new(name);
+    }
 }

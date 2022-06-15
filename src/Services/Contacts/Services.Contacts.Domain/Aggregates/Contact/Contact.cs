@@ -8,11 +8,11 @@ namespace Services.Contacts.Domain.Aggregates.Contact;
 
 public class Contact : AggregateRoot<ContactId>
 {
+    private readonly List<ContactField> _fields = new();
     // public ContactId Id { get; private set; }
 
     private ContactFirstName _firstName = null!;
     private ContactLastName? _lastName;
-    private readonly List<ContactField> _fields = new();
 
     private Contact()
     {
@@ -35,10 +35,7 @@ public class Contact : AggregateRoot<ContactId>
     {
         var alreadyExists = _fields.Contains(field);
 
-        if (alreadyExists)
-        {
-            throw new ContactFieldAlreadyExistsException(field);
-        }
+        if (alreadyExists) throw new ContactFieldAlreadyExistsException(field);
 
         _fields.Add(field);
         AddEvent(new ContactFieldAdded(field, _fields));
@@ -65,10 +62,7 @@ public class Contact : AggregateRoot<ContactId>
     {
         var field = _fields.SingleOrDefault(f => f.Value == value.ToUpperInvariant() && f.Type == type);
 
-        if (field is null)
-        {
-            throw new ContactFieldNotFoundException(value, type);
-        }
+        if (field is null) throw new ContactFieldNotFoundException(value, type);
 
         return field;
     }

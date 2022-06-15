@@ -3,7 +3,6 @@ using Shared.Abstractions.Queries;
 
 namespace Services.Reports.Application.Queries;
 
-public class GetReports:  IQuery<IEnumerable<ReportDto>>
+public class GetReports : IQuery<IEnumerable<ReportDto>>
 {
-    
 }

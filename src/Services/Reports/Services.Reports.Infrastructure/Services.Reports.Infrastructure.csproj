@@ -7,17 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
-      <ProjectReference Include="..\Services.Reports.Application\Services.Reports.Application.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\Services.Reports.Application\Services.Reports.Application.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="EF\Migrations" />
-      <Folder Include="Events" />
+        <Folder Include="EF\Migrations"/>
+        <Folder Include="Events"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3"/>
     </ItemGroup>
 
 </Project>

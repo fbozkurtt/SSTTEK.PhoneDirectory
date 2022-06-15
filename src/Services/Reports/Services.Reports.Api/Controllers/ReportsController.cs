@@ -10,8 +10,10 @@ public class ReportsController : BaseController
     private readonly IQueryDispatcher _queryDispatcher;
 
     public ReportsController(IQueryDispatcher queryDispatcher)
-        => _queryDispatcher = queryDispatcher;
-    
+    {
+        _queryDispatcher = queryDispatcher;
+    }
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ReportDto>>> Get()
     {
