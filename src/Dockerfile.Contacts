@@ -1,0 +1,25 @@
+﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["Shared/Shared.csproj", "Shared/"]
+COPY ["Shared.Abstractions/Shared.Abstractions.csproj", "Shared.Abstractions/"]
+COPY ["Services/Contacts/Services.Contacts.Api/Services.Contacts.Api.csproj", "Services/Contacts/Services.Contacts.Api/"]
+COPY ["Services/Contacts/Services.Contacts.Infrastructure/Services.Contacts.Infrastructure.csproj", "Services/Contacts/Services.Contacts.Infrastructure/"]
+COPY ["Services/Contacts/Services.Contacts.Application/Services.Contacts.Application.csproj", "Services/Contacts/Services.Contacts.Application/"]
+COPY ["Services/Contacts/Services.Contacts.Domain/Services.Contacts.Domain.csproj", "Services/Contacts/Services.Contacts.Domain/"]
+RUN dotnet restore "Services/Contacts/Services.Contacts.Api/Services.Contacts.Api.csproj"
+COPY . .
+WORKDIR "/src/Services/Contacts/Services.Contacts.Api"
+RUN dotnet build "Services.Contacts.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Services.Contacts.Api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Services.Contacts.Api.dll"]

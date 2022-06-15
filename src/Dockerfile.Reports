@@ -1,0 +1,26 @@
+﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["Shared/Shared.csproj", "Shared/"]
+COPY ["Shared.Abstractions/Shared.Abstractions.csproj", "Shared.Abstractions/"]
+COPY ["Services/Reports/Services.Reports.Api/Services.Reports.Api.csproj", "Services/Reports/Services.Reports.Api/"]
+COPY ["Services/Reports/Services.Reports.Infrastructure/Services.Reports.Infrastructure.csproj", "Services/Reports/Services.Reports.Infrastructure/"]
+COPY ["Services/Reports/Services.Reports.Application/Services.Reports.Application.csproj", "Services/Reports/Services.Reports.Application/"]
+COPY ["Services/Reports/Services.Reports.Domain/Services.Reports.Domain.csproj", "Services/Reports/Services.Reports.Domain/"]
+COPY ["Services/Contacts/Services.Contacts.Domain/Services.Contacts.Domain.csproj", "Services/Contacts/Services.Contacts.Domain/"]
+RUN dotnet restore "Services/Reports/Services.Reports.Api/Services.Reports.Api.csproj"
+COPY . .
+WORKDIR "/src/Services/Reports/Services.Reports.Api"
+RUN dotnet build "Services.Reports.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Services.Reports.Api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Services.Reports.Api.dll"]

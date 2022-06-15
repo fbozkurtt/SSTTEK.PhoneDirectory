@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+
+  contacts:
+    container_name: pd_contacts
+    build:
+      context: ./src
+      dockerfile: Dockerfile.Contacts
+    ports:
+      - "7200:80"
+    environment:
+      - Postgres:ConnectionString=Host=contacts_database;Port=5432;Database=pd_db;Username=postgres;Password=pd_password
+      - MassTransit:Host=rabbitmq://message_broker
+      - MassTransit:Port=5672
+      - MassTransit:Username=rabbitmq
+      - MassTransit:Password=rabbitmq_password
+    restart: on-failure
+    depends_on:
+      - contacts_database
+      - message_broker
+
+
+  reports:
+    container_name: pd_reports
+    build:
+      context: ./src
+      dockerfile: Dockerfile.Reports
+    ports:
+      - "7201:80"
+    environment:
+      - Postgres:ConnectionString=Host=reports_database;Port=5432;Database=pd_db;Username=postgres;Password=rpd_password
+      - MassTransit:Host=rabbitmq://message_broker
+      - MassTransit:Port=5672
+      - MassTransit:Username=rabbitmq
+      - MassTransit:Password=rabbitmq_password
+    restart: on-failure
+    depends_on:
+      - reports_database
+      - message_broker
+  
+  contacts_database:
+    image: postgres:14.3
+    container_name: pd_contacts_postgres
+    environment:
+      POSTGRES_PASSWORD: pd_password
+  
+  reports_database:
+    image: postgres:14.3
+    container_name: pd_reports_postgres
+    environment:
+      POSTGRES_PASSWORD: rpd_password
+
+  message_broker:
+    image: rabbitmq:3.9-management
+    container_name: pd_rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq_password
